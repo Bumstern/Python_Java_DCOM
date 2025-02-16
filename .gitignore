@@ -1,0 +1,11 @@
+cache
+out
+docs
+venv
+.env
+dcom_client_server.db
+*.log
+*.vbs
+test_server.py
+.idea
+__pycache__
