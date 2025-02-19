@@ -192,7 +192,7 @@ class UserMenu:
             wp_id = input("Введите определенный id").strip()
         return wp_id
 
-    def __scheduled_wallpaper(self, delay: int):
+    def __scheduled_wallpaper(self, delay: int, page: int):
         categories = self._server.get_user_preferences(self._token, 'categories')
         categories_str = ''.join(["1" if category in categories else "0" for category in ['General', 'Anime', 'People']])
         resolutions = self._server.get_user_preferences(self._token, 'resolutions')
@@ -200,11 +200,12 @@ class UserMenu:
         query: str = ' '.join(query)
 
         result = self._server.search_wallpapers(
-            self._token, query, categories_str, resolutions,
+            self._token, query, categories_str, resolutions, None, page
         )
         result: dict = json.loads(result)
+        self.__save_wp(result, None, False)
 
-        self._scheduler.enter(delay, 1, self.__scheduled_wallpaper, (delay,))
+        self._scheduler.enter(delay, 1, self.__scheduled_wallpaper, (delay, page + 1,))
 
     def _wallpaper_search_menu(self) -> None | str:
         result = None
@@ -278,7 +279,7 @@ class UserMenu:
                         input("Неверный ввод. Нажмите Enter, чтобы выйти.")
                         continue
 
-                    self._scheduler.enter(delay, 1, self.__scheduled_wallpaper, (delay,))
+                    self._scheduler.enter(delay, 1, self.__scheduled_wallpaper, (delay, 1))
                     sched_thread = threading.Thread(target=self._scheduler.run, daemon=True)
                     sched_thread.start()
                     input("Рассылка настроена. Нажмите Enter, чтобы продолжить.")
