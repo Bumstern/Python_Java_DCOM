@@ -18,8 +18,6 @@ from managers.db_manager import DBManager, PREFERENCE
 class WallpaperDCOMServer:
     _reg_clsid_ = '{EEC8D5C1-6971-48FE-9ED0-D9FE80BC93AD}' # import pythoncom; pythoncom.CreateGuid()
     _public_methods_ = [
-        'SayHello',
-        'test',
         'register',
         'login',
         'search_wallpapers',
@@ -29,10 +27,8 @@ class WallpaperDCOMServer:
         'remove_user_config',
         'get_all_preferences',
         'get_user_preferences'
-    ] # 'test', 'register_menu', 'user_menu',
-    # _public_attrs_ = ['account_manager', 'db_manager', 'wp_manager']
+    ] 
     _reg_progid_ = 'WallpaperDCOM.Server'
-    # _reg_clsctx_ = pythoncom.CLSCTX_INPROC_SERVER
 
     def __init__(self):
         self._account_manager = AccountManager()
@@ -93,17 +89,6 @@ class WallpaperDCOMServer:
         if result is not None:
             result = [item[0] for item in result]
         return result
-
-    @AccountManager.user_data_wrapper
-    def SayHello(self, username: str): #, add: str):
-        return f"Hello, {username}!"
-
-    def test(self):
-        return str(self._wp_manager.get_random_wallpapers())
-        # return str(self._wp_manager.search_wallpapers(query='cat', wallpaper_id=None))
-        # print(self._wp_manager.get_random_wallpapers())
-        # print(self._wp_manager.get_wallpaper_of_day())
-        # return self._wp_manager.get_list_of_wallpapers_urls_from_response(self._wp_manager.get_wallpaper_of_day(), light=True)
 
 
 if __name__ == "__main__":
