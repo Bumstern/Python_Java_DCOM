@@ -1,0 +1,17 @@
+cache
+out
+aut
+lib
+docs
+venv
+.env
+dcom_client_server.db
+*.log
+*.vbs
+*.dll
+test_server.py
+.idea
+__pycache__
+.vscode
+target
+pom.xml
