@@ -54,7 +54,7 @@ class WPManager:
         return self.search_wallpapers(sorting=SORTING_TYPE.RANDOM)
 
     def get_wallpaper_of_day(self) -> dict:
-        response = self.search_wallpapers(query='cat')
+        response = self.search_wallpapers(query='cat', sorting=SORTING_TYPE.RELEVANCE)
         new_res = response['meta']
         new_res['data'] = [response['data'][0]]
         return new_res

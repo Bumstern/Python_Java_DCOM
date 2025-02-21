@@ -177,13 +177,13 @@ class UserMenu:
         people = input("Нужно ли искать People [Y/other]: ").strip() == 'Y'
         return ''.join(['1' if elem else '0' for elem in [general, anime, people]])
 
-    def __input_resolution(self) -> list | None:
+    def __input_resolution(self) -> list:
         resolution = []
         need_to = input("Нужно ли определенное разрешение? [Y/other]").strip() == 'Y'
         while need_to:
             resolution.append(input("Введите разрешение: ").strip())
             need_to = input("Еще? [Y/other]").strip() == 'Y'
-        return None if resolution == [] else resolution
+        return resolution
 
     def __input_wp_id(self) -> str | None:
         need_to = input("Есть ли определенный id [Y/other]") == 'Y'
